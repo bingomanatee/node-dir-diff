@@ -1,7 +1,7 @@
 {
   "name": "node-dir-diff",
   "description": "directory comparison for node.js using hive-loader",
-  "version": "0.0.1",
+  "version": "0.0.1a",
   "private": false,
   "scripts": {
     "test": "tap ./test",
@@ -22,7 +22,7 @@
     "tap": ">=0.3",
     "chai": "~1.5.0"
   },
-  "main": "lib/index.js",
+  "main": "index.js",
   "keyworkds": [
     "hive",
     "spawn",
