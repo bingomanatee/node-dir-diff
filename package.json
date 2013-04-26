@@ -1,0 +1,32 @@
+{
+  "name": "node-dir-diff",
+  "description": "directory comparison for node.js using hive-loader",
+  "version": "0.0.1",
+  "private": false,
+  "scripts": {
+    "test": "tap ./test",
+    "start": "node index"
+  },
+  "dependencies": {
+    "underscore": "*",
+    "async": "~0.1.22",
+    "gate": "~0.3.0",
+    "mkdirp": ">=0.3.4",
+    "dank-copyfile": "0.0.1",
+    "rmdir": ">0.1",
+    "ejs": "~0.8.3",
+    "hive-loader": "0.0.1",
+    "filecompare": "0.0.2"
+  },
+  "devDependencies": {
+    "tap": ">=0.3",
+    "chai": "~1.5.0"
+  },
+  "main": "lib/index.js",
+  "keyworkds": [
+    "hive",
+    "spawn",
+    "dir",
+    "diff"
+  ]
+}
