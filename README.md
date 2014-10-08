@@ -5,9 +5,9 @@ A directory comparison system using hive-loader/node.js. Compares two or more di
 
 The comparisons have three possible "depths":
 
-1) path only -- checks the file/directory paths for added or missing files, but ignores content (comp == 'list');
-2) size -- does a stat, and notes files that are the same name, but different sizes. (comp = 'size')
-3) content -- compares file content on a byte level (using the filecompare module). (comp = 'full')
+ 1. **path only** -- checks the file/directory paths for added or missing files, but ignores content (comp == 'list');
+ 2. **size** -- does a stat, and notes files that are the same name, but different sizes. (comp = 'size')
+ 3. **content** -- compares file content on a byte level (using the filecompare module). (comp = 'full')
 
 Note that tests that fail a simpler test will not be subjected to higher tests;
 that is, if a file is not found in all
@@ -18,7 +18,7 @@ Usage
 
 To compare two or more directories, simply call
 
-<code>
+```
 
 	var dd = new ndd.Dir_Diff(
 		[
@@ -30,12 +30,12 @@ To compare two or more directories, simply call
 	);
 
 	dd.compare(function (err, result) {
-	if (result.deviation > 0){
-		console.log('you have %s deviations!', result.deviation);
-		console.log(util.inspect(deviation));
-	}
-});
-</code>
+		if (result.deviation > 0){
+			console.log('you have %s deviations!', result.deviation);
+			console.log(util.inspect(deviation));
+		}
+	});
+```
 
 Any number of directories can be passed in; if the comparison mode is omitted, 'list' is assumed.
 
@@ -47,62 +47,66 @@ Output
 
 The feedback to the callback is a report object:
 
-<code>
-		{
-			root_dirs:    [the input to dir_diff],
-			added:		  [info]
-			dirs:         {dir_hash}
-			file_status:  [file-dir-status],
-			dir_status:   [file-dir-status],
-			deviation:    posint,
-			deviations:   [deviation-report],
-			common_files: common_files,
-			added:        added,
-			missing:      missing
-		};
-</code>
+```
+	{
+		root_dirs:    [the input to dir_diff],
+		added:		  [info]
+		dirs:         {dir_hash}
+		file_status:  [file-dir-status],
+		dir_status:   [file-dir-status],
+		deviation:    posint,
+		deviations:   [deviation-report],
+		common_files: common_files,
+		added:        added,
+		missing:      missing
+	};
+```
 
 Most of the report is work product; the deviation and deviations properties are the most significant elements of the
 report.
 
 where info is
 
-<code>
+
+```
  	{
  		subpath: string (relative to root dir),
  		path:    string (absolute pate to file),
  		type:    string ('file' or 'dir'),
  		root:    string (the root dir)
  	}
-</code>
-
+```
 dir-hash is
 
-<code>
+```
 	{
 		'root_dir': ['dir paths...'],
 		...
 		'root_dir': ['dir paths...']
 	}
-</code>
+```
 
 file-dir-status is
-<code>
-	[{dir: 'root_dir',
-	 devaition: posint,
-	 added:[ 'subpath'... 'subpath']
-	 missing: ['subpath' ... 'subpath']
-	 } ... {}]
-</code>
+```
+	[
+		{
+			dir: 'root_dir',
+			 devaition: posint,
+			 added:[ 'subpath'... 'subpath']
+			 missing: ['subpath' ... 'subpath']
+		 }
+		 ... {}
+	 ]
+```
 
 deviation-report is
-<code>
+```
 	{
 		"type":    "string",
 		"info":    "string" | info,
 		"variant": "added" | "removed" (optional);
 	}
 
-</code>
+```
 
-see the "sample outpuut.json" file in test resources.
+see the "sample output.json" file in test resources.
