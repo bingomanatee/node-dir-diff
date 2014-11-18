@@ -16,7 +16,7 @@
     "rmdir": ">0.1",
     "ejs": "~0.8.3",
     "hive-loader": "0.0.1",
-    "filecompare": "0.0.2"
+    "filecompare": "0.0.3"
   },
   "devDependencies": {
     "tap": ">=0.3",
