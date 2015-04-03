@@ -8,18 +8,13 @@
   },
   "dependencies": {
     "underscore": "*",
-    "async": "~0.1.22",
+    "async": "~0.9.0",
     "gate": "~0.3.0",
-    "mkdirp": ">=0.3.4",
-    "dank-copyfile": "0.0.1",
-    "rmdir": ">0.1",
-    "ejs": "~0.8.3",
-    "hive-loader": "0.0.1",
+    "hive-loader": "0.0.2",
     "filecompare": "0.0.3"
   },
   "devDependencies": {
-    "tap": ">=0.3",
-    "chai": "~1.5.0"
+    "tap": ">=0.3"
   },
   "main": "index.js",
   "keyworkds": [
