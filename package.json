@@ -4,8 +4,7 @@
   "version": "0.0.1a",
   "private": false,
   "scripts": {
-    "test": "tap ./test",
-    "start": "node index"
+    "test": "tap ./tests"
   },
   "dependencies": {
     "underscore": "*",
