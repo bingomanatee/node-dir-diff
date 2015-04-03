@@ -24,35 +24,43 @@ tap.test('test_dir_diff', function (t) {
 	dd.compare(function (err, result) {
 		//	console.log('result: %s', util.inspect(result, true, 5));
 
-		t.equals(result.deviation, 3, 'deviation is 3');
+		t.equals(result.deviation, 4, 'deviation is 4');
 
 		t.deepEqual(result.missing, [
 			{
 				type:    'missing',
 				subpath: '/bar/wilma.txt',
-				"root":  "/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_2",
+				"root":  path.resolve(root, 'test_2'),
 				path:    root + '/test_2/bar/wilma.txt'
+			},
+			{
+				"type":  "missing",
+				subpath: '/bar/underwear/.keep',
+				"root":  path.resolve(root, 'test_2'),
+				"path":  root + "/test_2/bar/underwear/.keep"
 			},
 			{
 				"type":  "dir",
 				subpath: '/bar/underwear',
-				"root":  "/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_2",
+				"root":  path.resolve(root, 'test_2'),
 				"path":  root + "/test_2/bar/underwear"
 			}
 		], 'missing files');
 
-		t.deepEqual(result.common_files, [ '/bar/barney.txt',
+		t.deepEqual(result.common_files.sort(), [
 			'/bar/Fred.txt',
+			'/bar/barney.txt',
+			'/bar/clothes/blue_fir.json',
+			'/bar/clothes/red_fur.json',
 			'/foo/Barney.txt',
 			'/foo/Moe.txt',
-			'/bar/clothes/blue_fir.json',
-			'/bar/clothes/red_fur.json' ], 'files in common');
+		], 'files in common');
 
 		t.deepEqual(result.added, [
 			{
 				type:    'file',
 				subpath: "/bar/clothes/white_fir.json",
-				"root":  "/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_2",
+				"root":  path.resolve(root, 'test_2'),
 				path:    root + '/test_2/bar/clothes/white_fir.json'
 			}
 		]);
@@ -63,6 +71,9 @@ tap.test('test_dir_diff', function (t) {
 				variant: 'added' },
 			{ type:      'unique_file_path',
 				info:    root + '/test_2/bar/wilma.txt',
+				variant: 'missing' },
+			{ type:      'unique_file_path',
+				info:    root + '/test_2/bar/underwear/.keep',
 				variant: 'missing' },
 			{ type:      'unique_file_path',
 				info:    root + '/test_2/bar/underwear',
@@ -92,7 +103,7 @@ tap.test('test_dir_diff(size)', function (t) {
 		expected [root + '/test_1/bar/barney.txt'] = 11;
 		expected [root + '/test_2/bar/barney.txt'] = 31;
 		t.deepEqual(result.file_size_difference, [expected], "expected detects the difference in barney size")
-		t.equals(result.deviation, 4, 'deviation is 4');
+		t.equals(result.deviation, 5, 'deviation is 5');
 
 		var fs_info = {};
 
@@ -105,6 +116,9 @@ tap.test('test_dir_diff(size)', function (t) {
 				variant: 'added' },
 			{ type:      'unique_file_path',
 				info:    root + '/test_2/bar/wilma.txt',
+				variant: 'missing' },
+			{ type:      'unique_file_path',
+				info:    root + '/test_2/bar/underwear/.keep',
 				variant: 'missing' },
 			{ type:      'unique_file_path',
 				info:    root + '/test_2/bar/underwear',
@@ -134,35 +148,39 @@ tap.test('test_dir_diff(full) -- three dirs', function (t) {
 
 			var diff_subpaths = _.pluck(result.file_content_difference, 'subpath');
 			t.deepEqual(diff_subpaths, ['/foo/Moe.txt'], "detects difference in Moe Sislak (hyphen)")
-			t.equals(result.deviation, 6, 'deviation is 6');
+			t.equals(result.deviation, 8, 'deviation is 8');
 
 			var fs_info = {};
 
 			fs_info[root + '/test_1/bar/barney.txt'] = 11;
 			fs_info[root + '/test_2/bar/barney.txt'] = 31;
 
-			console.log('deviations (3): ', JSON.stringify(result, true, 4));
-
 			t.deepEqual(result.deviations, [
 				{ type:      'unique_file_path',
-					info:    '/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_2/bar/clothes/white_fir.json',
+					info:    root + '/test_2/bar/clothes/white_fir.json',
 					variant: 'added' },
 				{ type:      'unique_file_path',
-					info:    '/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_3/bar/barney.txt',
+					info:    root + '/test_3/bar/barney.txt',
 					variant: 'added' },
 				{ type:      'unique_file_path',
-					info:    '/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_2/bar/wilma.txt',
+					info:    root + '/test_2/bar/wilma.txt',
 					variant: 'missing' },
 				{ type:      'unique_file_path',
-					info:    '/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_2/bar/underwear',
+					info:    root + '/test_2/bar/underwear/.keep',
 					variant: 'missing' },
 				{ type:      'unique_file_path',
-					info:    '/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_3/bar/clothes/gloves',
+					info:    root + '/test_3/bar/clothes/gloves/.keep',
+					variant: 'missing' },
+				{ type:      'unique_file_path',
+					info:    root + '/test_2/bar/underwear',
+					variant: 'missing' },
+				{ type:      'unique_file_path',
+					info:    root + '/test_3/bar/clothes/gloves',
 					variant: 'missing' },
 				{ type:   'file_content',
 					info: { subpath: '/foo/Moe.txt',
-						root_dir:    '/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_2',
-						full_path:   '/Users/dedelhart/Documents/node/node-dir-diff/test_resources/test_2/foo/Moe.txt' } }
+						root_dir:    root + '/test_2',
+						full_path:   root + '/test_2/foo/Moe.txt' } }
 			]);
 
 			t.end();
