@@ -1,3 +1,5 @@
+'use strict';
+
 var tap = require('tap');
 var path = require('path');
 var util = require('util');
@@ -30,20 +32,20 @@ tap.test('test_dir_diff', function (t) {
 			{
 				type:    'missing',
 				subpath: '/bar/wilma.txt',
-				"root":  path.resolve(root, 'test_2'),
+				'root':  path.resolve(root, 'test_2'),
 				path:    root + '/test_2/bar/wilma.txt'
 			},
 			{
-				"type":  "missing",
+				'type':  'missing',
 				subpath: '/bar/underwear/.keep',
-				"root":  path.resolve(root, 'test_2'),
-				"path":  root + "/test_2/bar/underwear/.keep"
+				'root':  path.resolve(root, 'test_2'),
+				'path':  root + '/test_2/bar/underwear/.keep'
 			},
 			{
-				"type":  "dir",
+				'type':  'dir',
 				subpath: '/bar/underwear',
-				"root":  path.resolve(root, 'test_2'),
-				"path":  root + "/test_2/bar/underwear"
+				'root':  path.resolve(root, 'test_2'),
+				'path':  root + '/test_2/bar/underwear'
 			}
 		], 'missing files');
 
@@ -59,8 +61,8 @@ tap.test('test_dir_diff', function (t) {
 		t.deepEqual(result.added, [
 			{
 				type:    'file',
-				subpath: "/bar/clothes/white_fir.json",
-				"root":  path.resolve(root, 'test_2'),
+				subpath: '/bar/clothes/white_fir.json',
+				'root':  path.resolve(root, 'test_2'),
 				path:    root + '/test_2/bar/clothes/white_fir.json'
 			}
 		]);
@@ -102,7 +104,7 @@ tap.test('test_dir_diff(size)', function (t) {
 		var expected = {};
 		expected [root + '/test_1/bar/barney.txt'] = 11;
 		expected [root + '/test_2/bar/barney.txt'] = 31;
-		t.deepEqual(result.file_size_difference, [expected], "expected detects the difference in barney size")
+		t.deepEqual(result.file_size_difference, [expected], 'expected detects the difference in barney size')
 		t.equals(result.deviation, 5, 'deviation is 5');
 
 		var fs_info = {};
@@ -147,7 +149,7 @@ tap.test('test_dir_diff(full) -- three dirs', function (t) {
 			if (_DEBUG) console.log('full compare - three files: %s', util.inspect(result, true, 5));
 
 			var diff_subpaths = _.pluck(result.file_content_difference, 'subpath');
-			t.deepEqual(diff_subpaths, ['/foo/Moe.txt'], "detects difference in Moe Sislak (hyphen)")
+			t.deepEqual(diff_subpaths, ['/foo/Moe.txt'], 'detects difference in Moe Sislak (hyphen)')
 			t.equals(result.deviation, 8, 'deviation is 8');
 
 			var fs_info = {};

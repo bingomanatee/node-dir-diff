@@ -1,7 +1,8 @@
+'use strict';
+
 var tap = require('tap');
 var path = require('path');
 var util = require('util');
-var _ = require('underscore');
 var ndd = require('./../index');
 
 var _DEBUG = false;
@@ -21,13 +22,13 @@ var root = path.resolve(__dirname, '../test_resources');
 
 			var files = catalog.files;
 			for(var i = 0;i < files.length;++i) {
-				files[i] = path.relative(path.resolve(__dirname, ".."), files[i]);
+				files[i] = path.relative(path.resolve(__dirname, '..'), files[i]);
 			}
 			files.sort();
 
 			var dirs = catalog.dirs;
 			for(i = 0;i < dirs.length;++i) {
-				dirs[i] = path.relative(path.resolve(__dirname, ".."), dirs[i]);
+				dirs[i] = path.relative(path.resolve(__dirname, '..'), dirs[i]);
 			}
 			dirs.sort();
 
@@ -36,13 +37,13 @@ var root = path.resolve(__dirname, '../test_resources');
 				'test_resources/test_1/bar/barney.txt',
 				'test_resources/test_1/bar/clothes/blue_fir.json',
 				'test_resources/test_1/bar/clothes/red_fur.json',
-				"test_resources/test_1/bar/clothes/white_fir.json",
+				'test_resources/test_1/bar/clothes/white_fir.json',
 				'test_resources/test_1/foo/Barney.txt',
 				'test_resources/test_1/foo/Moe.txt',
 			], 'found all files');
 			t.deepEqual(dirs, [
 					'test_resources/test_1/bar',
-					"test_resources/test_1/bar/clothes",
+					'test_resources/test_1/bar/clothes',
 					'test_resources/test_1/foo',
 			], 'found all dirs');
 			t.end();
